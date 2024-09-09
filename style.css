@@ -1,0 +1,226 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  body {
+    background-color: #021027;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #494a4b;
+    font-family: sans-serif; /* Replace Montserrat with a system default */
+    text-align: center;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+  }
+  
+  .heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .heading__title {
+    font-size: 2rem;
+    color: #494a4b;
+    font-weight: 700;
+  }
+  
+  .heading__img {
+    width: 50px;
+    margin-right: 15px;
+  }
+  
+  .form__label {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #6c757d;
+  }
+  
+  .form__input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #6c757d;
+    font-size: 1rem;
+  }
+  
+  .form__input:focus {
+    outline: none;
+    border-color: #5a99d3;
+    box-shadow: 0 0 5px rgba(90, 153, 211, 0.5);
+  }
+  
+  .button {
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #5a99d3;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #4e88c4;
+  }
+  
+  .toDoList {
+    margin-top: 1.5rem;
+    text-align: left;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .toDoList li {
+    background-color: #f1f5f8;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid #d1d3e2;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .toDoList li:hover {
+    background-color: #a1c4fd;
+    text-decoration: line-through;
+  }
+  
+  /* Animation Background */
+  .background {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    mask-image: radial-gradient(
+      white 0%,
+      white 30%,
+      transparent 80%,
+      transparent
+    );
+  }
+  
+  .circle-container {
+    position: absolute;
+    transform: translateY(-10vh);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  
+  .circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    background-image: radial-gradient(
+      hsl(180, 100%, 80%),
+      hsl(180, 100%, 80%) 10%,
+      hsla(180, 100%, 80%, 0) 56%
+    );
+    animation: fadein-frames 200ms infinite, scale-frames 2s infinite;
+  }
+  
+  @keyframes fade-frames {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes scale-frames {
+    0% {
+      transform: scale3d(0.4, 0.4, 1);
+    }
+    50% {
+      transform: scale3d(2.2, 2.2, 1);
+    }
+    100% {
+      transform: scale3d(0.4, 0.4, 1);
+    }
+  }
+  
+  @for $i from 1 through 200 {
+    &:nth-child(#{$i}) {
+      $circleSize: random(8);
+      width: $circleSize + px;
+      height: $circleSize + px;
+  
+      $startPositionY: random(10) + 100;
+      $framesName: "move-frames-" + $i;
+      $moveDuration: 28000 + random(9000) + ms;
+  
+      animation-name: #{$framesName};
+      animation-duration: $moveDuration;
+      animation-delay: random(37000) + ms;
+  
+      @keyframes #{$framesName} {
+        from {
+          transform: translate3d(random(100) + vw, $startPositionY + vh, 0);
+        }
+        to {
+          transform: translate3d(random(100) + vw, -$startPositionY - random(30) + vh, 0);
+        }
+      }
+      .circle {
+        animation-delay: random(4000) + ms;
+      }
+    }
+  }
+  
+  .message {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+    color: white;
+    font-family: "Josefin Slab", serif;
+    line-height: 27px;
+    font-size: 18px;
+    text-align: right;
+    pointer-events: none;
+    animation: message-frames 1.5s ease 5s forwards;
+    opacity: 0;
+  }
+  
+  @keyframes message-frames {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
